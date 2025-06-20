@@ -18,7 +18,10 @@ const fetchWeather = async () => {
     const response = await axios.get(
       `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=4&aqi=no&alerts=no`
     );
-    setWeatherData(response.data.forecast.forecastday);
+    setTimeout(() => {
+      setWeatherData(response.data.forecast.forecastday);
+      setLoading(false);
+    }, 800);
   } catch (error) {
     alert('Failed to fetch weather data');
   } finally {
@@ -40,15 +43,17 @@ const fetchWeather = async () => {
 
       {loading && <p>Loading data...</p>}
 
-      <div className="weather-cards">
-        {weatherData.map((day, index) => (
-          <div className="weather-card" key={index}>
-            <h3>{day.date}</h3>
-            <p>Temp: {day.day.avgtemp_c}°C</p>
-            <p>{day.day.condition.text}</p>
-          </div>
-        ))}
-      </div>
+      {weatherData.length > 0 && (
+        <div class="weather-cards">
+          {weatherData.map((day, index) => (
+            <div class="weather-card" key={index}>
+              <h3>{day.date}</h3>
+              <p>Temp: {day.day.avgtemp_c}°C</p>
+              <p>{day.day.condition.text}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
     </div>
   );
