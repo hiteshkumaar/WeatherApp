@@ -16,7 +16,7 @@ const fetchWeather = async () => {
 
   try {
     const response = await axios.get(
-      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=4&aqi=no&alerts=no`
+      `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=4&aqi=no&alerts=no`
     );
     setTimeout(() => {
       setWeatherData(response.data.forecast.forecastday);
